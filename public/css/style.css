@@ -1,0 +1,245 @@
+/* ====== PALET WARNA ====== */
+:root {
+    --hijau: #a8d5ba;
+    --hijau-tua: #2f5d46;
+    --hijau-muda: #e8f5ec;
+    --pink: #f8c8dc;
+    --pink-tua: #e58fb0;
+    --pink-muda: #fff0f6;
+    --pink-teks: #8a2f55;
+    --teks: #3d4f46;
+}
+
+/* ====== DASAR ====== */
+body {
+    font-family: "Poppins", "Segoe UI", Arial, sans-serif;
+    color: var(--teks);
+    background: linear-gradient(
+        160deg,
+        var(--hijau-muda) 0%,
+        var(--pink-muda) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* ====== NAVBAR ====== */
+.navbar-pastel {
+    background: linear-gradient(90deg, var(--hijau), var(--pink));
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    --bs-navbar-color: var(--hijau-tua);
+    --bs-navbar-hover-color: #1d3d2d;
+    --bs-navbar-active-color: #1d3d2d;
+    --bs-navbar-brand-color: var(--hijau-tua);
+    --bs-navbar-brand-hover-color: #1d3d2d;
+    --bs-navbar-toggler-border-color: rgba(47, 93, 70, 0.4);
+}
+
+.navbar-pastel .navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.logo-titik {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5);
+    margin-right: 10px;
+}
+
+.navbar-pastel .nav-link {
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 0.4rem 1.1rem;
+    margin-left: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.navbar-pastel .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.55);
+}
+
+.navbar-pastel .nav-link.active {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ====== JUDUL HALAMAN ====== */
+.judul-halaman {
+    font-weight: 700;
+    color: var(--hijau-tua);
+    margin-bottom: 0.5rem;
+}
+
+.judul-halaman::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 5px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--hijau), var(--pink-tua));
+    margin: 0.6rem auto 0;
+}
+
+.sub-judul {
+    text-align: center;
+    color: #7a8f84;
+    margin-bottom: 1.8rem;
+}
+
+/* ====== KARTU ====== */
+.kartu {
+    border: none;
+    border-top: 6px solid var(--pink-tua);
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(229, 143, 176, 0.2);
+    overflow: hidden;
+}
+
+/* ====== TABEL ====== */
+.tabel-pastel {
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: var(--pink-muda);
+    --bs-table-hover-bg: var(--hijau-muda);
+    --bs-table-border-color: #f6e1ea;
+    --bs-table-color: var(--teks);
+    --bs-table-striped-color: var(--teks);
+    --bs-table-hover-color: var(--teks);
+}
+
+.tabel-pastel thead th {
+    background-color: var(--hijau);
+    color: var(--hijau-tua);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.tabel-pastel th,
+.tabel-pastel td {
+    padding: 0.95rem 1.2rem;
+    vertical-align: middle;
+}
+
+/* label gender */
+.badge-gender {
+    display: inline-block;
+    min-width: 2.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.badge-l {
+    background-color: var(--hijau);
+    color: var(--hijau-tua);
+}
+
+.badge-p {
+    background-color: var(--pink);
+    color: var(--pink-teks);
+}
+
+/* ====== FORM ====== */
+.form-label {
+    font-weight: 600;
+    color: var(--hijau-tua);
+}
+
+.form-control {
+    border: 2px solid #e1efe6;
+    border-radius: 12px;
+    padding: 0.65rem 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--hijau);
+    box-shadow: 0 0 0 0.25rem rgba(168, 213, 186, 0.45);
+}
+
+.catatan-rumus {
+    text-align: center;
+    color: #7a8f84;
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+/* ikon segitiga (dibuat dengan CSS) */
+.ikon-segitiga {
+    width: 0;
+    height: 0;
+    margin: 0 auto 1rem;
+    border-left: 34px solid transparent;
+    border-right: 34px solid transparent;
+    border-bottom: 60px solid var(--pink-tua);
+    filter: drop-shadow(0 6px 6px rgba(229, 143, 176, 0.35));
+}
+
+/* ====== TOMBOL ====== */
+.btn.btn-pastel {
+    background: linear-gradient(135deg, var(--pink), var(--pink-tua));
+    border: none;
+    border-radius: 50px;
+    color: #5b2a41;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.7rem 1.5rem;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.btn.btn-pastel:hover,
+.btn.btn-pastel:focus,
+.btn.btn-pastel:active {
+    background: linear-gradient(135deg, var(--pink-tua), var(--pink));
+    color: #5b2a41;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(229, 143, 176, 0.45);
+}
+
+/* ====== NOTIFIKASI ====== */
+.alert {
+    border-radius: 14px;
+}
+
+.alert-success {
+    background-color: var(--hijau-muda);
+    border-color: var(--hijau);
+    color: var(--hijau-tua);
+}
+
+.alert-danger {
+    background-color: #ffe3ee;
+    border-color: #f4b6cf;
+    color: var(--pink-teks);
+}
+
+.hasil {
+    text-align: center;
+    font-size: 1.05rem;
+}
+
+.hasil strong {
+    font-size: 1.7rem;
+}
+
+/* ====== FOOTER ====== */
+.footer-web {
+    background: linear-gradient(90deg, var(--pink), var(--hijau));
+    color: var(--hijau-tua);
+    font-weight: 500;
+}
