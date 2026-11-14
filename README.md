@@ -1,3 +1,134 @@
+# Tugas Praktikum Framework Laravel
+
+Tugas praktikum Pemrograman Web menggunakan framework Laravel. Materi yang
+dipraktikkan meliputi Route, Controller, Parsing Data ke View, dan Sistem
+Templating Blade.
+
+- **Nama:** Maya Puspa Wardhani
+- **NPM:** 2513020073
+- **Repository:** https://github.com/mayapuspa999-hash/laravel-2A
+
+## Deskripsi
+
+Aplikasi sederhana yang berisi dua halaman latihan:
+
+1. **Daftar Mahasiswa** (`/daftar/mahasiswa`): menampilkan data mahasiswa
+   (Nama, Alamat, Gender) dalam bentuk tabel.
+2. **Kalkulator Luas Segitiga** (`/kalkulator/segitiga`): form untuk menghitung
+   luas segitiga (`1/2 x alas x tinggi`) lengkap dengan validasi input.
+
+Data dikirim dari Controller ke View menggunakan array `$data`, lalu
+ditampilkan dengan Blade (`{{ }}`, `@foreach`, dan `@if`). Tampilan dibagi
+menjadi layout, header, dan footer dengan sistem templating Blade
+(`@extends`, `@include`, `@yield`).
+
+## Teknologi
+
+- PHP 8.5.12 atau lebih baru
+- Laravel 13.40.0
+- Composer
+- Bootstrap 5.3 (CDN) dan CSS
+
+## Daftar Halaman (Route)
+
+| Method | URL                    | Controller             | Fungsi           | Keterangan             |
+| ------ | ---------------------- | ---------------------- | ---------------- | ---------------------- |
+| GET    | `/daftar/mahasiswa`    | `MahasiswaController`  | `index`          | Tabel daftar mahasiswa |
+| GET    | `/kalkulator/segitiga` | `KalkulatorController` | `segitiga`       | Form luas segitiga     |
+| POST   | `/kalkulator/segitiga` | `KalkulatorController` | `hitungSegitiga` | Proses hitung luas     |
+
+## Struktur File Penting
+
+```
+web-app
+ |- app/Http/Controllers
+ |    |- MahasiswaController.php     (baru)
+ |    |- KalkulatorController.php    (segitiga + hitungSegitiga)
+ |- public/css
+ |    |- style.css                   (tema hijau mint + pink pastel)
+ |- resources/views
+ |    |- template
+ |    |    |- header.blade.php       (navbar)
+ |    |    |- footer.blade.php
+ |    |- layout.blade.php            (template utama)
+ |    |- mahasiswa.blade.php         (latihan)
+ |    |- segitiga.blade.php          (latihan)
+ |- routes
+ |    |- web.php                     (ditambah 3 route)
+ |- screenshots                      (gambar untuk README)
+```
+
+## Cara Menjalankan
+
+1. Clone repository dan masuk ke foldernya:
+
+    ```
+    git clone https://github.com/mayapuspa999-hash/laravel-2A.git
+    cd laravel-2A
+    ```
+
+2. Install dependency (jika folder `vendor` belum ada):
+
+    ```
+    composer install
+    ```
+
+3. Siapkan file environment (jika belum ada `.env`):
+
+    ```
+    copy .env.example .env
+    php artisan key:generate
+    ```
+
+4. Jalankan server:
+
+    ```
+    php artisan serve
+    ```
+
+5. Buka di browser:
+    - http://localhost:8000/daftar/mahasiswa
+    - http://localhost:8000/kalkulator/segitiga
+
+> Koneksi internet diperlukan karena Bootstrap dan font dimuat lewat CDN.
+
+## Contoh Pengujian
+
+- `/daftar/mahasiswa` menampilkan 4 baris: Anton, Budi, Ani, Sinta.
+- `/kalkulator/segitiga`: isi alas `10` dan tinggi `5`, klik **HITUNG**,
+  hasilnya **25**.
+- `/kalkulator/segitiga`: kosongkan kolom atau isi `0`, akan muncul pesan
+  kesalahan validasi.
+- `/kalkulator/segitiga`: isi alas `0` dan tinggi `0`, klik **HITUNG**, akan
+  muncul pesan "Alas harus lebih besar dari 0" dan "Tinggi harus lebih besar
+  dari 0".
+
+## Screenshot
+
+### 1. Daftar Mahasiswa (`/daftar/mahasiswa`)
+
+![Daftar Mahasiswa](screenshots/mahasiswa.png)
+
+### 2. Kalkulator Segitiga, sebelum dihitung (`/kalkulator/segitiga`)
+
+![Segitiga Awal](screenshots/segitiga-awal.png)
+
+### 3. Kalkulator Segitiga, setelah dihitung
+
+![Segitiga Hasil](screenshots/segitiga-hasil.png)
+
+### 4. Kalkulator Segitiga, pesan validasi (alas dan tinggi diisi 0)
+
+![Segitiga Error](screenshots/segitiga-error.png)
+
+## Referensi
+
+- Modul Praktikum Framework Laravel, Rudy Eko Prasetya, S.Kom
+- Dokumentasi Laravel: https://laravel.com/docs
+- Dokumentasi Bootstrap: https://getbootstrap.com/docs/5.3
+
+---
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -26,20 +157,6 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
 In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
 
 ## Contributing
 
