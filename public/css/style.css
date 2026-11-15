@@ -177,7 +177,7 @@ main {
     margin-bottom: 1.2rem;
 }
 
-/* ikon segitiga (dibuat dengan CSS) */
+/* ikon segitiga */
 .ikon-segitiga {
     width: 0;
     height: 0;
@@ -242,4 +242,58 @@ main {
     background: linear-gradient(90deg, var(--pink), var(--hijau));
     color: var(--hijau-tua);
     font-weight: 500;
+}
+
+/* ====== FORM PERSAMAAN KALKULATOR ====== */
+.rumus-baris {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.rumus-baris .tanda {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--pink-tua);
+    line-height: 3rem;
+}
+
+.kolom-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.kolom-input small {
+    margin-top: 0.4rem;
+    color: #7a8f84;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.rumus-baris .form-control {
+    width: 130px;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--hijau-tua);
+}
+
+.hasil-bulat {
+    min-width: 110px;
+    height: 3rem;
+    padding: 0 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background-color: var(--hijau-muda);
+    border: 2px solid var(--hijau);
+    color: var(--hijau-tua);
+    font-size: 1.3rem;
+    font-weight: 700;
 }

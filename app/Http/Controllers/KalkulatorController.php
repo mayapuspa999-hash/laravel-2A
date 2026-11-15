@@ -10,9 +10,9 @@ class KalkulatorController extends Controller
     public function segitiga()
     {
         $data['judul']  = 'Kalkulator Luas Segitiga';
-        $data['alas']   = null;
-        $data['tinggi'] = null;
-        $data['hasil']  = null;
+        $data['alas']   = 0;
+        $data['tinggi'] = 0;
+        $data['hasil']  = 0;
 
         return view('segitiga', $data);
     }
@@ -33,8 +33,9 @@ class KalkulatorController extends Controller
             'tinggi.gt'       => 'Tinggi harus lebih besar dari 0.',
         ]);
 
-        //menangkap input dari form
-        $data['judul']  = 'Kalkulator Luas Segitiga';
+        $data['judul'] = 'Kalkulator Luas Segitiga';
+
+        // menangkap input dari form
         $data['alas']   = (float) $request->input('alas');
         $data['tinggi'] = (float) $request->input('tinggi');
 

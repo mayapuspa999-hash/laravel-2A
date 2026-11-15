@@ -7,7 +7,7 @@
 <p class="sub-judul">Hitung luas segitiga dari alas dan tinggi</p>
 
 <div class="row justify-content-center">
-    <div class="col-md-6 col-lg-5">
+    <div class="col-lg-9">
         <div class="card kartu">
             <div class="card-body p-4">
 
@@ -24,27 +24,38 @@
                 </div>
                 @endif
 
-                <form method="post" action="{{ url('/kalkulator/segitiga') }}">
+                <form action="{{ url('/kalkulator/segitiga') }}" method="post">
                     @csrf
-                    <div class="mb-3">
-                        <label for="alas" class="form-label">Alas</label>
-                        <input type="number" step="any" class="form-control" id="alas"
-                               name="alas" value="{{ old('alas', $alas) }}" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="tinggi" class="form-label">Tinggi</label>
-                        <input type="number" step="any" class="form-control" id="tinggi"
-                               name="tinggi" value="{{ old('tinggi', $tinggi) }}" required>
-                    </div>
-                    <button type="submit" class="btn btn-pastel w-100">HITUNG</button>
-                </form>
 
-                @if ($hasil !== null)
-                <div class="alert alert-success hasil mt-4 mb-0">
-                    Luas = &frac12; &times; {{ $alas }} &times; {{ $tinggi }}
-                    = <strong>{{ $hasil }}</strong>
-                </div>
-                @endif
+                    <div class="rumus-baris">
+                        <span class="tanda">&frac12; &times;</span>
+
+                        <div class="kolom-input">
+                            <input type="number" step="any" class="form-control" name="alas"
+                                   value="{{ old('alas', $alas) }}" required>
+                            <small>Alas</small>
+                        </div>
+
+                        <span class="tanda">&times;</span>
+
+                        <div class="kolom-input">
+                            <input type="number" step="any" class="form-control" name="tinggi"
+                                   value="{{ old('tinggi', $tinggi) }}" required>
+                            <small>Tinggi</small>
+                        </div>
+
+                        <span class="tanda">=</span>
+
+                        <div class="kolom-input">
+                            <div class="hasil-bulat">{{ $hasil }}</div>
+                            <small>Luas</small>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-pastel px-5">HITUNG</button>
+                    </div>
+                </form>
 
             </div>
         </div>
