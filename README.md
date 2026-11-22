@@ -1,8 +1,9 @@
 # Tugas Praktikum Framework Laravel
 
 Tugas praktikum Pemrograman Web menggunakan framework Laravel. Materi yang
-dipraktikkan meliputi Route, Controller, Parsing Data ke View, dan Sistem
-Templating Blade.
+dipraktikkan meliputi Route, Controller, Parsing Data ke View, Sistem
+Templating Blade, CRUD dengan Eloquent, Migration, Seeder dan Factory, serta
+Autentikasi dengan Session dan Middleware.
 
 - **Nama:** Maya Puspa Wardhani
 - **NPM:** 2513020073
@@ -10,26 +11,76 @@ Templating Blade.
 
 ## Deskripsi
 
-Aplikasi sederhana yang berisi dua halaman latihan:
+Aplikasi ini dikerjakan bertahap mengikuti Modul Praktikum Framework Laravel.
+
+**Latihan sebelumnya** (tanpa login):
 
 1. **Daftar Mahasiswa** (`/daftar/mahasiswa`): menampilkan data mahasiswa
    (Nama, Alamat, Gender) dalam bentuk tabel.
 2. **Kalkulator Luas Segitiga** (`/kalkulator/segitiga`): form untuk menghitung
    luas segitiga (`1/2 x alas x tinggi`) lengkap dengan validasi input.
 
+**Praktikum lanjutan** (Sistem Templating sampai Autentikasi):
+
+1. **Sistem Templating**: halaman dashboard dengan layout header, banner,
+   sidebar, dan konten yang dipisah menjadi beberapa file Blade.
+2. **CRUD**: pengelolaan data pegawai (tabel `employes`) dengan fitur tampil,
+   tambah, ubah, dan hapus data memakai Eloquent ORM.
+3. **Migration, Seeder dan Factory**: pembuatan tabel lewat file migration dan
+   pengisian data dummy otomatis memakai Seeder dan Faker.
+4. **Autentikasi**: halaman login dengan session, logout, dan pembatasan
+   halaman memakai Middleware.
+
 Data dikirim dari Controller ke View menggunakan array `$data`, lalu
-ditampilkan dengan Blade (`{{ }}`, `@foreach`, dan `@if`). Tampilan dibagi
-menjadi layout, header, dan footer dengan sistem templating Blade
-(`@extends`, `@include`, `@yield`).
+ditampilkan dengan Blade (`{{ }}`, `@foreach`, `@forelse`, dan `@if`).
 
 ## Teknologi
 
 - PHP 8.5.12 atau lebih baru
 - Laravel 13.40.0
 - Composer
+- MySQL (XAMPP) dengan database `company`
 - Bootstrap 5.3 (CDN) dan CSS
 
+## Daftar Fitur Praktikum Lanjutan
+
+### 1. Sistem Templating
+
+Layout dashboard dibagi menjadi beberapa bagian dengan `@extends`, `@include`,
+dan `@yield`. Halaman Home, Gallery, About, dan CRUD memakai satu template
+yang sama (`dashboard.blade.php`) sehingga cukup menulis isi kontennya saja.
+Tampilan dashboard memakai `dashboard.css` yang terpisah dari tema pastel
+(`style.css`) milik latihan sebelumnya.
+
+### 2. CRUD (Create, Read, Update, Delete)
+
+Pengelolaan data pegawai pada tabel `employes` lewat `EmployeController` dan
+model `Employe`:
+
+- **Read**: menampilkan semua data pegawai dalam tabel
+- **Create**: form tambah data dan penyimpanan ke database
+- **Update**: form edit dan perubahan data berdasarkan ID
+- **Delete**: penghapusan data dengan konfirmasi
+
+### 3. Migration, Seeder dan Factory
+
+- **Migration**: struktur tabel `users` dan `employes` dibuat lewat file
+  migration, bukan SQL manual
+- **Seeder**: `UserSeeder` membuat akun admin dan `EmployeSeeder` membuat 10
+  data pegawai dummy memakai Faker
+- `DatabaseSeeder` memanggil kedua seeder sehingga cukup satu perintah
+
+### 4. Autentikasi
+
+- Halaman login (`/`) memeriksa email dan password (di-hash) dari tabel `users`
+- Data login disimpan di session, lalu pengguna diarahkan ke dashboard
+- Middleware `IsLogin` (alias `islogin`) melindungi halaman dashboard, gallery,
+  about, dan CRUD
+- Logout menghapus session dan mengembalikan pengguna ke halaman login
+
 ## Daftar Halaman (Route)
+
+### Latihan sebelumnya
 
 | Method | URL                    | Controller             | Fungsi           | Keterangan             |
 | ------ | ---------------------- | ---------------------- | ---------------- | ---------------------- |
@@ -37,25 +88,71 @@ menjadi layout, header, dan footer dengan sistem templating Blade
 | GET    | `/kalkulator/segitiga` | `KalkulatorController` | `segitiga`       | Form luas segitiga     |
 | POST   | `/kalkulator/segitiga` | `KalkulatorController` | `hitungSegitiga` | Proses hitung luas     |
 
+### Praktikum lanjutan
+
+| Method | URL                  | Controller            | Fungsi    | Login | Keterangan         |
+| ------ | -------------------- | --------------------- | --------- | ----- | ------------------ |
+| GET    | `/`                  | (closure)             | -         | Tidak | Halaman login      |
+| POST   | `/login`             | `AuthController`      | `cek`     | Tidak | Proses login       |
+| GET    | `/logout`            | `AuthController`      | `logout`  | Ya    | Logout             |
+| GET    | `/dashboard`         | `DashboardController` | `home`    | Ya    | Halaman Home       |
+| GET    | `/gallery`           | `DashboardController` | `gallery` | Ya    | Halaman Gallery    |
+| GET    | `/about`             | `DashboardController` | `about`   | Ya    | Halaman About      |
+| GET    | `/employe`           | `EmployeController`   | `index`   | Ya    | Tabel data pegawai |
+| GET    | `/employe/create`    | `EmployeController`   | `create`  | Ya    | Form tambah data   |
+| POST   | `/employe/store`     | `EmployeController`   | `store`   | Ya    | Simpan data baru   |
+| GET    | `/employe/edit/{id}` | `EmployeController`   | `show`    | Ya    | Form edit data     |
+| PUT    | `/employe/{id}`      | `EmployeController`   | `update`  | Ya    | Ubah data          |
+| DELETE | `/employe/{id}`      | `EmployeController`   | `destroy` | Ya    | Hapus data         |
+
 ## Struktur File Penting
 
 ```
 web-app
- |- app/Http/Controllers
- |    |- MahasiswaController.php     (baru)
- |    |- KalkulatorController.php    (segitiga + hitungSegitiga)
+ |- app
+ |    |- Http
+ |    |    |- Controllers
+ |    |    |    |- MahasiswaController.php     (latihan)
+ |    |    |    |- KalkulatorController.php    (latihan)
+ |    |    |    |- DashboardController.php     (templating)
+ |    |    |    |- EmployeController.php       (CRUD)
+ |    |    |    |- AuthController.php          (autentikasi)
+ |    |    |- Middleware
+ |    |         |- IsLogin.php                 (autentikasi)
+ |    |- Models
+ |         |- Employe.php                      (CRUD)
+ |         |- User.php
+ |- bootstrap
+ |    |- app.php                                (alias middleware islogin)
+ |- database
+ |    |- migrations                            (tabel users dan employes)
+ |    |- seeders
+ |         |- DatabaseSeeder.php
+ |         |- UserSeeder.php
+ |         |- EmployeSeeder.php
  |- public/css
- |    |- style.css                   (tema hijau mint + pink pastel)
+ |    |- style.css                             (tema hijau mint + pink pastel)
+ |    |- dashboard.css                         (tema dashboard)
  |- resources/views
  |    |- template
- |    |    |- header.blade.php       (navbar)
+ |    |    |- header.blade.php                 (navbar pastel)
  |    |    |- footer.blade.php
- |    |- layout.blade.php            (template utama)
- |    |- mahasiswa.blade.php         (latihan)
- |    |- segitiga.blade.php          (latihan)
+ |    |    |- dash_header.blade.php            (header dashboard)
+ |    |    |- dash_sidebar.blade.php           (sidebar dashboard)
+ |    |- layout.blade.php                      (template latihan)
+ |    |- mahasiswa.blade.php                   (latihan)
+ |    |- segitiga.blade.php                    (latihan)
+ |    |- dashboard.blade.php                   (template dashboard)
+ |    |- home.blade.php
+ |    |- gallery.blade.php
+ |    |- about.blade.php
+ |    |- tampil_data.blade.php                 (CRUD)
+ |    |- tambah_data.blade.php                 (CRUD)
+ |    |- edit_data.blade.php                   (CRUD)
+ |    |- login.blade.php                       (autentikasi)
  |- routes
- |    |- web.php                     (ditambah 3 route)
- |- screenshots                      (gambar untuk README)
+ |    |- web.php
+ |- screenshots                                (gambar untuk README)
 ```
 
 ## Cara Menjalankan
@@ -80,19 +177,55 @@ web-app
     php artisan key:generate
     ```
 
-4. Jalankan server:
+4. Jalankan **Apache** dan **MySQL** di XAMPP, lalu buat database kosong
+   bernama `company` lewat phpMyAdmin.
+
+5. Atur koneksi database di file `.env`:
+
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=company
+    DB_USERNAME=root
+    DB_PASSWORD=
+
+    SESSION_DRIVER=file
+    CACHE_STORE=file
+    QUEUE_CONNECTION=sync
+    ```
+
+6. Jalankan migration dan seeder (membuat tabel dan mengisi data dummy):
+
+    ```
+    php artisan migrate:fresh --seed
+    ```
+
+7. Jalankan server:
 
     ```
     php artisan serve
     ```
 
-5. Buka di browser:
+8. Buka di browser:
+    - http://localhost:8000/ (login)
     - http://localhost:8000/daftar/mahasiswa
     - http://localhost:8000/kalkulator/segitiga
 
-> Koneksi internet diperlukan karena Bootstrap dan font dimuat lewat CDN.
+> Koneksi internet diperlukan karena Bootstrap dan font dimuat lewat CDN, dan
+> gambar banner dashboard diambil dari picsum.photos.
+
+## Akun Login
+
+Akun berikut dibuat otomatis oleh `UserSeeder`:
+
+| Email            | Password |
+| ---------------- | -------- |
+| `admin@mail.com` | `123456` |
 
 ## Contoh Pengujian
+
+**Latihan sebelumnya**
 
 - `/daftar/mahasiswa` menampilkan 4 baris: Anton, Budi, Ani, Sinta.
 - `/kalkulator/segitiga`: isi alas `10` dan tinggi `5`, klik **HITUNG**,
@@ -103,7 +236,34 @@ web-app
   muncul pesan "Alas harus lebih besar dari 0" dan "Tinggi harus lebih besar
   dari 0".
 
+**Praktikum lanjutan**
+
+- **Autentikasi**: login dengan `admin@mail.com` dan `123456`, langsung masuk
+  ke `/dashboard`. Login dengan password salah menampilkan pesan "Email atau
+  password salah!".
+- **Pembatasan halaman**: setelah logout, membuka `/dashboard` atau `/employe`
+  langsung mengarahkan ke halaman login.
+- **Sistem Templating**: menu Home, Gallery, dan About menampilkan layout yang
+  sama (header, banner, sidebar) dengan konten berbeda.
+- **CRUD**: `/employe` menampilkan 10 data pegawai dari seeder. Coba tombol
+  **Tambah Data**, **Edit**, dan **Delete**; setiap aksi kembali ke tabel.
+- **Migration dan Seeder**: perintah `php artisan migrate:fresh --seed`
+  menghasilkan tabel `users` (1 baris) dan `employes` (10 baris) tanpa error.
+
+## Riwayat Commit
+
+Setiap bab praktikum lanjutan di-commit terpisah sesuai nama babnya:
+
+| Bab                           | Pesan commit                                |
+| ----------------------------- | ------------------------------------------- |
+| Sistem Templating             | `[ADD] fitur Sistem Templating`             |
+| CRUD                          | `[ADD] fitur Crud`                          |
+| Migration, Seeder dan Factory | `[ADD] fitur Migration, Seeder dan Factory` |
+| Autentikasi                   | `[ADD] fitur Autentikasi`                   |
+
 ## Screenshot
+
+Screenshot berikut untuk latihan Route, Controller, dan Parsing Data ke View.
 
 ### 1. Daftar Mahasiswa (`/daftar/mahasiswa`)
 
