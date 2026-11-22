@@ -1,30 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-// import controller web dan taruh di routes dengan nama alias Web
-use App\Http\Controllers\Web;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\KalkulatorController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-
-    // return view("wellcome);
-    return 'Halo Nama Ku adalah Laravel, Salam Kenal';
+    return view('welcome');
 });
 
-// route baru
-Route::get('/about', function () { 
-    //return view('welcome'); 
-    return "<h2>Ini adalah halaman About</h2>"; 
-    }); 
-
-// route ke controller web ke fungsi home
-Route::get('/web', [Web::class, 'home']);
-
-//route daftar mahasiswa
+//route daftar mahasiswa (latihan sebelumnya)
 Route::get('/daftar/mahasiswa', [MahasiswaController::class, 'index']);
 
-//route kalkulator luas segitiga
+//route kalkulator luas segitiga (latihan sebelumnya)
 Route::get('/kalkulator/segitiga', [KalkulatorController::class, 'segitiga']);
 Route::post('/kalkulator/segitiga', [KalkulatorController::class, 'hitungSegitiga']);
+
+//route ke controller Dashboard
+Route::get('/dashboard', [DashboardController::class, 'home']);
+Route::get('/gallery', [DashboardController::class, 'gallery']);
+Route::get('/about', [DashboardController::class, 'about']);
